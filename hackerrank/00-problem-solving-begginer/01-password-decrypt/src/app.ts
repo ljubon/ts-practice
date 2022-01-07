@@ -34,11 +34,11 @@ function decryptPassword(s: string): string {
     return convertArrToString(arr);
 }
 
-let encrypted: string = "43Ah*ck0rr0nk"
-let decrypted: string = "hAck3rr4nk"
-
+let encrypted: string = "51Pa*0Lp*0e"
+let decrypted: string = "aP1pL5e"
+// let encrypted: string = "51Pa*0Lp*0e"
+// let decrypted: string = "aP1pL5e"
 console.log("Encrypted:\t\t" + encrypted);
 console.log("Decrypted:\t\t" + decryptPassword(encrypted));
 console.log("Expected:\t\t" + decrypted);
 (decrypted == decryptPassword(encrypted)) ? console.log("It works!") : console.log("Not yet...");
-
