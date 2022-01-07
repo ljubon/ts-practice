@@ -29,7 +29,7 @@ function swapChars(s: string, old: number, goal: number): string {
 }
 
 function decryptPassword(s: string): string {
-    // let arr = convertStringToArray(s);
+    let arr = convertStringToArray(s);
 
     // let i = 0
     // while (i < arr.length - 1) {
@@ -49,20 +49,17 @@ function decryptPassword(s: string): string {
     //         i += 1
     //     }
     // }
-    let tmp = s
 
-    return tmp
+    return convertArrToString(arr);
+    
 }
 
-let hacker: string = "43Ah*ck0rr0nk" // hAck3rr4nk
-let dummyString = 'Javascript is popular language'
-console.log(decryptPassword(hacker));
-console.log("Goal:\t\thAck3rr4nk");
+let encrypted: string = "43Ah*ck0rr0nk"
+let decrypted: string =  "hAck3rr4nk"
 
-// let test1: string = "51Pa*0Lp*0e"// aP1pL5e
-// console.log(decryptPassword(test1));
-// console.log("Goal:\taP1pL5e");
+console.log("Encrypted:\t\t" + encrypted);
+console.log("Decrypted:\t\t" + decryptPassword(encrypted));
+console.log("Expected:\t\t" + decrypted);
+( decrypted == decryptPassword(encrypted)) ? console.log("It works!"): console.log("Not yet...");
 
-// let test2 = "pTo*Ta*O" // poTaTO
-// console.log("poTaTO")
-// console.log(decryptPassword(test2))
+
