@@ -9,14 +9,18 @@ function birthday(s: number[], d: number, m: number): number {
         let sum = s[i]
         while (check) {
 
+          // single value 
           if (sum == d && s.length == m) {
             result++
             check = false
           } else {
+
+            // sum of M squares 
             for (let a = 1; a < m; a++) {
               sum = sum + s[i + a]
             }
 
+            // Check
             if (sum == d) {
               result++
             } else {
