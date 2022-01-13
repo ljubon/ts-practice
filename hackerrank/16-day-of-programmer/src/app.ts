@@ -20,10 +20,46 @@ function getDateMonth(year: number, dayInYear: number): number[] {
   return [day, month]
 }
 
+function daysInFeb(year: number) {
+  if (year == 1918) {
+    return 15;
+  } else if (year < 1918) {
+    if (year % 4 == 0) {
+      return 29;
+    } else {
+      return 28;
+    }
+  } else { // year >= 1919
+    if (year % 400 == 0) {
+      return 29;
+    } else if (year % 100 == 0) {
+      return 28;
+    } else if (year % 4 == 0) {
+      return 29;
+    } else {
+      return 28;
+    }
+  }
+}
+
+function daysInMonth(year: number, month: number) {
+  let monthsWith31Days = [1, 3, 5, 7, 8, 10, 12];
+  if (month == 2) {
+    return daysInFeb(year);
+  } else if (monthsWith31Days.indexOf(month) >= 0 ) {
+    return 31;
+  } else {
+    return 30;
+  }
+}
+
 function dayOfProgrammer(year: number): string {
-  let result = ""
-  let month = 0
-  let day = 0
+  let result = "";
+  let month = 0;
+  let day = 0;
+  result = `${day}.0${month}.${year}`
+  
+/**
 
   if (year >= 1700 && year <= 2700) {
 
@@ -60,19 +96,40 @@ function dayOfProgrammer(year: number): string {
     }
     result = `${day}.${parsedMonth}.${year}`
   }
-
-  /** With Date(), but can't cover all cases 
+*/
+  
+/** 
+  // With Date(), but can't cover all cases 
     for (let m = 1; m <= 11; m += 1) {
       for (let d = 1; d <= 31; d += 1) {
         let currentDate = new Date(Date.UTC(year, m, d))
         let startDate = new Date(Date.UTC(year, 0, 0))
         let diff = +currentDate - +startDate;
         let oneDay = 1000 * 60 * 60 * 24;
+        let dd = 0, mm = ''
         if (+currentDate.getUTCFullYear() ==  1800) {
           if (Math.floor(diff / oneDay) == 256) {
             // console.log("Year 1800 ", currentDate, startDate, diff, oneDay);
-            let dd = currentDate.getUTCDate()
-            let mm = "0" + (currentDate.getUTCMonth() + 1)
+            // let dd = currentDate.getUTCDate()
+            // let mm = "0" + (currentDate.getUTCMonth() + 1)
+            if (year < 1918) {
+              if (year % 4 == 0) {
+                dd = currentDate.getUTCDate()
+                mm = "0" + (currentDate.getUTCMonth() + 1)
+              } else {
+                dd = currentDate.getUTCDate()
+                mm = "0" + (currentDate.getUTCMonth() + 1)
+              }
+            } else if (year >= 1919) {
+              if ((year % 4 == 0 && year % 100 != 0) && year % 400 == 0) {
+                dd = currentDate.getUTCDate() + 1
+                mm = "0" + (currentDate.getUTCMonth() + 1) 
+              } else {
+                dd = currentDate.getUTCDate()
+                mm = "0" + (currentDate.getUTCMonth() + 1) 
+              }
+            } 
+
             result = `${dd - 1}.${mm}.${year}`
             // console.log(result)
           }; 
@@ -114,3 +171,12 @@ let g = 1918; // 26.09.1918
 
 let i: number = 1908; // 12.09.1908
 (dayOfProgrammer(i) == "12.09.1908") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(i) + " is not 12.09.1908")
+
+// let sum = 0
+// for (let i = 1; i <= 8; i++){
+//   let date = new Date(1800, i, 0).getDate()
+//   console.log(date);
+  
+//   sum += date
+// }
+// console.log(sum);
