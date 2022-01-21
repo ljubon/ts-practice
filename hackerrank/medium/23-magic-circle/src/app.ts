@@ -1,9 +1,9 @@
-function calculateSum(s: number[][]): ([number[], number[], number, number]){
+function calculateSum(s: number[][]): ([number[], number[], number, number]) {
   // starting from 1st to right
   const rowSum: number[] = s.map(r => r.reduce((a, b) => Math.abs(a) + Math.abs(b)));
   // starting from 1st to down
-  const colSum: number[] = s.reduce((a, b) => a.map((x, i) => Math.abs(x) + Math.abs(b[i])));  
-  
+  const colSum: number[] = s.reduce((a, b) => a.map((x, i) => Math.abs(x) + Math.abs(b[i])));
+
   let n = s.length;
   let diagSumL: number = 0;
   let diagSumR: number = 0;
@@ -28,24 +28,17 @@ function calculateSum(s: number[][]): ([number[], number[], number, number]){
 function formingMagicSquare(s: number[][]): number {
   let cost = 0;
 
-  // let rowSum: number[] = calculateSum(s)[0] // rowSum
-  // let colSum: number[] = calculateSum(s)[1] // colSum
-  // let diagSumL: number = calculateSum(s)[2] // diagSumL
-  // let diagSumR: number = calculateSum(s)[3] // diagSumR
-
-  // Fix row sum
-  // console.log(rowSum, colSum, diagSumL, diagSumR);
-  console.log(s);
-  calculateSum(s)[0].forEach((row_element, row_index) => {
+  let matrix = s;
+  calculateSum(matrix)[0].forEach((row_element, row_index) => {
     if (row_element < 15) {
       // console.log([row_element, row_index]);
       let diff = 15 - row_element
       let min = 10
-      s[row_index].forEach((matrix_element, matrix_index) => {
+      matrix[row_index].forEach((matrix_element, matrix_index) => {
         if (matrix_element < (9 - diff) && matrix_element < min) {
           // console.log(matrix_element, matrix_index);
           min = matrix_element
-          s[row_index][matrix_index] += diff
+          matrix[row_index][matrix_index] += diff
           cost += diff
         }
       });
@@ -53,44 +46,48 @@ function formingMagicSquare(s: number[][]): number {
       // console.log([row_element, row_index]);
       let diff = row_element - 15
       let min = 10
-      s[row_index].forEach((matrix_element, matrix_index) => {
+      matrix[row_index].forEach((matrix_element, matrix_index) => {
         if (matrix_element < (9 - diff) && matrix_element < min) {
           // console.log(matrix_element, matrix_index);
           min = matrix_element
-          s[row_index][matrix_index] -= diff
+          matrix[row_index][matrix_index] -= diff
           cost += diff
         }
       });
     }
   });
 
-  // Fix col sum
-  // console.log(rowSum, colSum, diagSumL, diagSumR);
-  console.log(s);
-  console.log(calculateSum(s))
-  calculateSum(s)[1].forEach((col_element, col_index) => {
+  // 4  9  2
+  // 3  5  7
+  // 8  2  5
+  // 15 16 14  <--- SUm
+
+  console.log(calculateSum(matrix))
+  calculateSum(matrix)[1].forEach((col_element, col_index) => {
+
     if (col_element < 15) {
-      // console.log([col_element, col_index]);
+      // console.log([col_element, col_index]); [ 15, 15, 15 ], [ 15, 16, 14 ]
       let diff = 15 - col_element
       let min = 10
-      s[col_index].forEach((matrix_element, matrix_index) => {
-        if (matrix_element < (9 - diff) && matrix_element < min) {
-          // console.log(matrix_element, matrix_index);
-          min = matrix_element
-          s[col_index][matrix_index] += diff
-          cost += diff
+      matrix.forEach((matrix_element, matrix_index) => {
+        // console.log(matrix_element, matrix_index);
+        if (matrix_element[col_index] < (9 - Math.abs(diff)) && matrix_element[col_index] < min) {
+          // console.log(matrix_element[col_index]);
+          min = matrix_element[col_index]
+          matrix[col_index][matrix_index] += Math.abs(diff)
+          cost += Math.abs(diff)
         }
       });
     } else if (col_element > 15) {
       // console.log([col_element, col_index]);
-      let diff = col_element - 15 
-      let min = 10
-      s[col_index].forEach((matrix_element, matrix_index) => {
-        if (matrix_element < (9 - diff) && matrix_element < min) {
-          // console.log(matrix_element, matrix_index);
-          min = matrix_element
-          s[col_index][matrix_index] -= diff
-          cost += diff
+      let diff = 15 - col_element
+      let min = 3
+      matrix.forEach((matrix_element, matrix_index) => {
+        console.log(matrix_element, matrix_index);
+        if (matrix_element[col_index] < (9 - Math.abs(diff))) {
+          console.log(matrix_element[col_index]);
+          matrix[col_index][matrix_index] -= Math.abs(diff)
+          cost += Math.abs(diff)
         }
       });
     }
@@ -100,6 +97,7 @@ function formingMagicSquare(s: number[][]): number {
   //  [ 3, 5, 7 ] 15
   //  [ 8, 1, 5 ] 14
   // 15 15 15 14  14
+  console.log(matrix);
   return cost;
 }
 
@@ -107,6 +105,17 @@ let f = [[4, 9, 2], [3, 5, 7], [8, 1, 5]];
 let resultA = formingMagicSquare(f);
 console.log(resultA + '\n'); // 1
 
+
+
+
+      // matrix[col_index].forEach((matrix_element, matrix_index) => {
+      //   if (matrix_element < (9 - diff) && matrix_element < min) {
+      //     // console.log(matrix_element, matrix_index);
+      //     min = matrix_element
+      //     matrix[col_index][matrix_index] += diff
+      //     cost += diff
+      //   }
+      // });
 
 // let b = [[4, 8, 2], [4, 6, 7], [6, 1, 6]];
 // let resultB = formingMagicSquare(b);
