@@ -46,19 +46,54 @@ function daysInMonth(year: number, month: number) {
   let monthsWith31Days = [1, 3, 5, 7, 8, 10, 12];
   if (month == 2) {
     return daysInFeb(year);
-  } else if (monthsWith31Days.indexOf(month) >= 0 ) {
+  } else if (monthsWith31Days.indexOf(month) >= 0) {
     return 31;
   } else {
     return 30;
   }
 }
 
+
+// 1917 =  13.09.1917
 function dayOfProgrammer(year: number): string {
-  let result = "";
-  let month = 0;
-  let day = 0;
-  result = `${day}.0${month}.${year}`
-  
+  let result: string = ``;
+  if (year <= 1917 && year >= 1700) {
+    (year % 4 === 0) ? result = `12.09.${year}` : result = `13.09.${year}`;
+  } else if (year >= 1919 && year <= 2700) {
+    (year % 400 === 0 || (year % 4 === 0 && year % 100 != 0)) ? result = `12.09.${year}` : result = `13.09.${year}`;
+  } else {
+    result = `26.09.${year}`; // year == 1918
+  }
+  return result
+}
+
+let t = 1917; // 13.09.2017
+(dayOfProgrammer(t) == "13.09.1917") ? console.log("It works! " + t) : console.log("Not yet... " + dayOfProgrammer(t) + " is not 13.09.2017")
+
+let a = 2017; // 13.09.2017
+(dayOfProgrammer(a) == "13.09.2017") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(a) + " is not 13.09.2017")
+
+let b = 2016; // 12.09.2016
+(dayOfProgrammer(b) == "12.09.2016") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(b) + " is not 12.09.2016")
+
+let c = 1800; // 12.09.1800
+(dayOfProgrammer(c) == "12.09.1800") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(c) + " is not 12.09.1800")
+
+let d = 1984; // 12.09.1984
+(dayOfProgrammer(d) == "12.09.1984") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(d) + "is not 12.09.1984")
+
+let e: number = 1700; // 12.09.1700
+(dayOfProgrammer(e) == "12.09.1700") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(e) + " is not 12.09.1700")
+
+let f = 1900; // 12.09.1900
+(dayOfProgrammer(f) == "12.09.1900") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(f) + " is not 12.09.1900")
+
+let g = 1918; // 26.09.1918
+(dayOfProgrammer(g) == "26.09.1918") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(g) + " is not 26.09.1918")
+
+let i: number = 1908; // 12.09.1908
+(dayOfProgrammer(i) == "12.09.1908") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(i) + " is not 12.09.1908")
+
 /**
 
   if (year >= 1700 && year <= 2700) {
@@ -97,7 +132,7 @@ function dayOfProgrammer(year: number): string {
     result = `${day}.${parsedMonth}.${year}`
   }
 */
-  
+
 /** 
   // With Date(), but can't cover all cases 
     for (let m = 1; m <= 11; m += 1) {
@@ -145,38 +180,3 @@ function dayOfProgrammer(year: number): string {
       }
     }
  */
-  return result
-}
-
-let a = 2017; // 13.09.2017
-(dayOfProgrammer(a) == "13.09.2017") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(a) + " is not 13.09.2017")
-
-let b = 2016; // 12.09.2016
-(dayOfProgrammer(b) == "12.09.2016") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(b) + " is not 12.09.2016")
-
-let c = 1800; // 12.09.1800
-(dayOfProgrammer(c) == "12.09.1800") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(c) + " is not 12.09.1800")
-
-let d = 1984; // 12.09.1984
-(dayOfProgrammer(d) == "12.09.1984") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(d) + "is not 12.09.1984")
-
-let e: number = 1700; // 12.09.1700
-(dayOfProgrammer(e) == "12.09.1700") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(e) + " is not 12.09.1700")
-
-let f = 1900; // 12.09.1900
-(dayOfProgrammer(f) == "12.09.1900") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(f) + " is not 12.09.1900")
-
-let g = 1918; // 26.09.1918
-(dayOfProgrammer(g) == "26.09.1918") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(g) + " is not 26.09.1918")
-
-let i: number = 1908; // 12.09.1908
-(dayOfProgrammer(i) == "12.09.1908") ? console.log("It works!") : console.log("Not yet... " + dayOfProgrammer(i) + " is not 12.09.1908")
-
-// let sum = 0
-// for (let i = 1; i <= 8; i++){
-//   let date = new Date(1800, i, 0).getDate()
-//   console.log(date);
-  
-//   sum += date
-// }
-// console.log(sum);
