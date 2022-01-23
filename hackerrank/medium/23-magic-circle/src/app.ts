@@ -26,6 +26,45 @@ function calculateSum(s: number[][]): ([number[], number[], number, number]) {
 
 
 function formingMagicSquare(s: number[][]): number {
+  let result = 0;
+  let magic1 = [[8, 1, 6], [3, 5, 7], [4, 9, 2]]
+  let magic2 = [[6, 1, 8], [7, 5, 3], [2, 9, 4]]
+  let magic3 = [[4, 9, 2], [3, 5, 7], [8, 1, 6]]
+  let magic4 = [[2, 9, 4], [7, 5, 3], [6, 1, 8]]
+  let magic5 = [[8, 3, 4], [1, 5, 9], [6, 7, 2]]
+  let magic6 = [[4, 3, 8], [9, 5, 1], [2, 7, 6]]
+  let magic7 = [[6, 7, 2], [1, 5, 9], [8, 3, 4]]
+  let magic8 = [[2, 7, 6], [9, 5, 1], [4, 3, 8]]
+  let possibleMagicSquares = [magic1, magic2, magic3, magic4, magic5, magic6, magic7, magic8]
+  let allPossibleAnswers: number[] = []
+  possibleMagicSquares.forEach(square => {
+
+    let currentAnswer: number = 0;
+    for (let i in [0, 1, 2]) {
+      for (let j in [0, 1, 2]) {
+        currentAnswer = currentAnswer + Math.abs(square[i][j] - s[i][j])
+      }
+    }
+    allPossibleAnswers.push(currentAnswer)
+  });
+  return Math.min(...allPossibleAnswers);
+}
+
+let f = [[4, 9, 2], [3, 5, 7], [8, 1, 5]];
+let resultA = formingMagicSquare(f);
+console.log(resultA + '\n'); // 1
+
+let b = [[4, 8, 2], [4, 6, 7], [6, 1, 6]];
+let resultB = formingMagicSquare(b);
+console.log(resultB + '\n'); // 4
+
+let c = [[5, 3, 4], [1, 5, 8], [6, 4, 2]];
+let resultC = formingMagicSquare(c);
+console.log(resultC + '\n'); // 7
+
+
+/*
+  # First idea...before looking up all possibilities for 3x3 magic circle.
   let cost = 0;
 
   let matrix = s;
@@ -99,28 +138,14 @@ function formingMagicSquare(s: number[][]): number {
   // 15 15 15 14  14
   console.log(matrix);
   return cost;
-}
+  }
 
-let f = [[4, 9, 2], [3, 5, 7], [8, 1, 5]];
-let resultA = formingMagicSquare(f);
-console.log(resultA + '\n'); // 1
-
-
-
-
-      // matrix[col_index].forEach((matrix_element, matrix_index) => {
-      //   if (matrix_element < (9 - diff) && matrix_element < min) {
-      //     // console.log(matrix_element, matrix_index);
-      //     min = matrix_element
-      //     matrix[col_index][matrix_index] += diff
-      //     cost += diff
-      //   }
-      // });
-
-// let b = [[4, 8, 2], [4, 6, 7], [6, 1, 6]];
-// let resultB = formingMagicSquare(b);
-// console.log(resultB + '\n'); // 4
-
-// let c = [[5, 3, 4], [1, 5, 8], [6, 4, 2]];
-// let resultC = formingMagicSquare(c);
-// console.log(resultC + '\n'); // 7
+    matrix[col_index].forEach((matrix_element, matrix_index) => {
+      if (matrix_element < (9 - diff) && matrix_element < min) {
+        // console.log(matrix_element, matrix_index);
+        min = matrix_element
+        matrix[col_index][matrix_index] += diff
+        cost += diff
+      }
+    });
+**/
