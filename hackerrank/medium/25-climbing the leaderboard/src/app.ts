@@ -7,7 +7,9 @@ function climbingLeaderboard(ranked: number[], player: number[]): number[] {
         return [];
     }
 
+    // Get unique ranking
     let scores = Array.from(new Set(ranked));
+    
     const player_ranks = [];
     for (const score of player) {
         while (scores && score >= scores[scores.length - 1]) {
