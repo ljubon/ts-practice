@@ -26,9 +26,12 @@ function utopianTree(n: number): number {
   if (n === 1) return height * 2;
   
   // full cycle
-  for (let start = 1; start <= n; start++){
-    height = height * 2; // spring
-    height = height + 1; // summer
+  for (let start = 0; start < n; start++){
+    if (start % 2 == 0) {
+      height *= 2; // spring
+    } else {
+      height += 1; // summer
+    }
   }
   return height;
 }
